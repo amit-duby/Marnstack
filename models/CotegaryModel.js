@@ -10,4 +10,4 @@ const CotegarySchema = new mongoose.Schema({
     lowercase: true,
   },
 });
-export default mongoose.model("Cotegarys", CotegarySchema);
+export default mongoose.model("categorys", CotegarySchema);

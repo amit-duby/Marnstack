@@ -1,5 +1,5 @@
-import catchAsync from "./catchError.js";
-import ErrorHanler from "../utills/Errorhandler.js";
+// import catchAsync from "./catchError.js";
+// import ErrorHanler from "../utills/Errorhandler.js";
 import JWT from "jsonwebtoken";
 import Users from "../models/UserModels.js";
 

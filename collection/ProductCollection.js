@@ -78,12 +78,13 @@ export const Getoneproduct = async (req, res) => {
       .findOne({ slug: req.params.slug })
       .select("-photo")
       .populate("category");
-    res.status(203).send({
+    res.status(200).send({
       success: true,
       //   counTotal: data.length,
       message: "find one product",
       product,
     });
+    // console.log(product);
   } catch (error) {
     console.log(error);
     res.status(500).send({
@@ -115,15 +116,11 @@ export const findphoto = async (req, res) => {
 // delete products
 export const deleteproduct = async (req, res) => {
   try {
-    const product = await productModel
-      .findByIdAndDelete(req.params.id)
-      .select("-photo");
+    await productModel.findByIdAndDelete(req.params.pid).select("-photo");
     res.status(200).send({
       success: true,
       message: "Product Deleted successfully",
-      product,
     });
-    console.log(product);
   } catch (error) {
     console.log(error);
     res.status(500).send({
@@ -208,6 +205,7 @@ export const ProductCount = async (req, res) => {
       message: "product is counted",
       total,
     });
+    // console.log(total);
   } catch (error) {
     console.log(error);
     res.status(400).send({
@@ -238,6 +236,58 @@ export const ProductPage = async (req, res) => {
     res.status(400).send({
       success: false,
       message: "error in per page ctrl",
+      error,
+    });
+  }
+};
+// search product
+export const Searchproductcollection = async (req, res) => {
+  try {
+    const { keyword } = req.params;
+    const resutls = await productModel
+      .find({
+        $or: [
+          { name: { $regex: keyword, $options: "i" } },
+          { description: { $regex: keyword, $options: "i" } },
+        ],
+      })
+      .select("-photo");
+    res.json(resutls);
+    console.log(resutls);
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error In Search Product API",
+      error,
+    });
+  }
+};
+
+// product details
+export const productDetailsCollection = async (req, res) => {
+  try {
+    const { pid, cid } = req.params;
+    const products = await productModel
+      .find({
+        // _id: req.params.pid,
+        // _id: req.params.cid,
+        _id: cid,
+        _id: { $ne: pid },
+      })
+      .select("-photo")
+      .limit(3)
+      .populate("category");
+    res.status(200).send({
+      success: true,
+      products,
+    });
+    console.log(products);
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "error while geting related product",
       error,
     });
   }

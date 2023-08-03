@@ -139,7 +139,7 @@ export const forget_Password = catchError(async (req, resp, next) => {
   if (!newpassword) {
     return next(new ErrorHandler("newpassword is require", 402));
   }
-  const data = await user.findOne({
+  const use = await users.findOne({
     email: req.body.email,
     answar: req.body.answar,
   });
@@ -147,7 +147,7 @@ export const forget_Password = catchError(async (req, resp, next) => {
     return next(new ErrorHandler("user not found", 403));
   }
 
-  const use = await users.findByIdAndUpdate({ id: _id });
+  const user = await users.findByIdAndUpdate({ id: _id });
   resp.status(200).send({
     use,
     success: true,

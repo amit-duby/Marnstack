@@ -12,9 +12,9 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
 // router............
-app.use("/api/v1", user);
+app.use("/api/v1/auth", user);
 // app.use("/api/v1/auth", authrout);
-app.use("/api/v1/cnt", cont);
+app.use("/api/v1/category", cont);
 app.use("/api/v1/product", proud);
 // port colum............
 dotenv.config({ path: "./config/.env" });

@@ -9,10 +9,10 @@ import {
 
 import { requireSignIn, isAdmin } from "../middleware/auth.js";
 
-router.post("/sign", register);
+router.post("/register", register);
 router.post("/login", LoginUsers);
 router.get("/get", requireSignIn, testing);
-router.get("/forget", forget_Password);
+router.get("/forgot-password", forget_Password);
 router.get("/user-auth", requireSignIn, (req, resp) => {
   resp.status(200).send({ ok: true });
 });

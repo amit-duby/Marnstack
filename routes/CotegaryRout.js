@@ -6,12 +6,12 @@ import {
   UpadateCategary,
   CreateCotegary,
 } from "./../collection/CotegaryCollection.js";
-import requireSignIn, { isAdmin } from "./../middleware/auth.js";
+import { requireSignIn, isAdmin } from "./../middleware/auth.js";
 const router = express.Router();
 
-router.post("/create", requireSignIn, isAdmin, CreateCotegary);
+router.post("/create-category", requireSignIn, isAdmin, CreateCotegary);
 router.post("/findOne/:slug", GetoneCategary);
-router.put("/exchang/:id", requireSignIn, isAdmin, UpadateCategary);
-router.get("/find", GetallCategary);
-router.delete("/delete/:id", requireSignIn, isAdmin, DeleteCategary);
+router.put("/update-category/:id", requireSignIn, isAdmin, UpadateCategary);
+router.get("/get-category", GetallCategary);
+router.delete("/delete-category/:id", requireSignIn, isAdmin, DeleteCategary);
 export default router;

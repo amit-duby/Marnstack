@@ -6,10 +6,12 @@ import {
   Getoneproduct,
   ProductCount,
   ProductPage,
+  Searchproductcollection,
   UpdateProduct,
   deleteproduct,
   filterproduct,
   findphoto,
+  productDetailsCollection,
 } from "./../collection/ProductCollection.js";
 import formidable from "express-formidable";
 const router = express.Router();
@@ -21,10 +23,10 @@ router.post(
   formidable(),
   CreateProduct
 );
-router.get("/getall-product", GetallProduct);
-router.get("/getone-Product/:slug", Getoneproduct);
+router.get("/get-product", GetallProduct);
+router.get("/get-product/:slug", Getoneproduct);
 router.delete("/delete-product/:pid", deleteproduct);
-router.get("/find-photo/:pid", findphoto);
+router.get("/product-photo/:pid", findphoto);
 router.put(
   "/update-product/:pid",
   requireSignIn,
@@ -32,8 +34,11 @@ router.put(
   formidable(),
   UpdateProduct
 );
-router.post("/filter-product", filterproduct);
+router.post("/product-filters", filterproduct);
 router.get("/product-count", ProductCount);
 router.get("/product-list/:page", ProductPage);
+// search
+router.get("/search/:keyword", Searchproductcollection);
+router.get("/related-product/:pid/:cid", productDetailsCollection);
 
 export default router;
